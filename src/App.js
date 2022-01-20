@@ -36,13 +36,15 @@ function App() {
         setDataCategory={setDataCategory}
       />
       <div>
-      <ul>
-        {data && data.map(item => 
-          <li key={item.id} style={{paddingBottom: 10}}>
-            { JSON.stringify(item) }
-          </li>  
-        )}
-        </ul>
+        <div className='flex-div column pb-20'>
+          {data && data.map(item =>
+            <div className='flex-div' key={item.id}>
+              {Object.values(item) && Object.values(item).map(i =>
+                <div className='content-div'>{JSON.stringify(i)}</div>
+              )}
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

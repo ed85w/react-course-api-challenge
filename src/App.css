@@ -11,3 +11,24 @@
 button {
   width: 33%;
 }
+
+.flex-div {
+  display: flex;
+  flex-direction: row;
+}
+
+.column {
+  flex-direction: column;
+}
+
+.pb-20 {
+  padding-bottom: 20px;
+}
+
+.content-div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid black;
+  padding: 5px;
+}
