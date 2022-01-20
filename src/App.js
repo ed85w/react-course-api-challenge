@@ -5,16 +5,15 @@ import { useState, useEffect } from 'react';
 
 function App() {
 
-  const [posts, setPosts] = useState([]);
-  const [users, setUsers] = useState([]);
-  const [comments, setComments] = useState([]);
+  const [data, setData] = useState([]);
+  const [dataCategory, setDataCategory] = useState('posts');
   const [showPosts, setShowPosts] = useState(true);
   const [showUsers, setShowUsers] = useState(false);
   const [showComments, setShowComments] = useState(false);
 
-  useEffect(() => {
+  useEffect((url) => {
     
-    const fetchItems = async (url, setData) => {
+    const fetchItems = async (url) => {
       try {
         const response = await fetch(url);
         if(!response.ok){
@@ -27,52 +26,26 @@ function App() {
       } 
     }
 
-    fetchItems('https://jsonplaceholder.typicode.com/posts', setPosts);
-    fetchItems('https://jsonplaceholder.typicode.com/users', setUsers);
-    fetchItems('https://jsonplaceholder.typicode.com/comments', setComments);
+    fetchItems(`https://jsonplaceholder.typicode.com/${dataCategory}`);
 
-  }, [])
+  }, [dataCategory])
 
 
   return (
     <div className="app-container">
       <Header 
-        showPosts={showPosts}
-        setShowPosts={setShowPosts}
-        showUsers={showUsers}
-        setShowUsers={setShowUsers}
-        setComments={setComments}
-        setShowComments={setShowComments}
+        dataCategory={dataCategory}
+        setDataCategory={setDataCategory}
       />
       <div>
       <ul>
-        {posts && showPosts && posts.map(post => 
-          <li key={post.id} style={{paddingBottom: 10}}>
-            { JSON.stringify(post) }
+        {data && data.map(item => 
+          <li key={item.id} style={{paddingBottom: 10}}>
+            { JSON.stringify(item) }
           </li>  
         )}
         </ul>
       </div>
-      <div>
-        <ul>
-        {users && showUsers && users.map(user => 
-          <li key={user.id} style={{paddingBottom: 10}}>
-            { JSON.stringify(user) }
-          </li>  
-        )}
-        </ul>
-      </div>
-      <div>
-        <ul>
-        {comments && showComments && comments.map(comment => 
-          <li key={comment.id} style={{paddingBottom: 10}}>
-            { JSON.stringify(comment) }
-          </li>  
-        )}
-        </ul>
-      </div>
-
-
     </div>
   );
 }
