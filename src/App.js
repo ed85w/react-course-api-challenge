@@ -11,8 +11,6 @@ function App() {
   const [showPosts, setShowPosts] = useState(true);
   const [showUsers, setShowUsers] = useState(false);
   const [showComments, setShowComments] = useState(false);
-  const [fetchError, setFetchError] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     
@@ -24,12 +22,9 @@ function App() {
         }
         const listItems = await response.json();
         setData(listItems);
-        setFetchError(null)
       } catch(err) {
-        setFetchError(err.message);
-      } finally {
-        setIsLoading(false);
-      }
+        console.log(err.message);
+      } 
     }
 
     fetchItems('https://jsonplaceholder.typicode.com/posts', setPosts);
@@ -52,7 +47,7 @@ function App() {
       <div>
       <ul>
         {posts && showPosts && posts.map(post => 
-          <li key={post.id}>
+          <li key={post.id} style={{paddingBottom: 10}}>
             { JSON.stringify(post) }
           </li>  
         )}
@@ -61,7 +56,7 @@ function App() {
       <div>
         <ul>
         {users && showUsers && users.map(user => 
-          <li key={user.id}>
+          <li key={user.id} style={{paddingBottom: 10}}>
             { JSON.stringify(user) }
           </li>  
         )}
@@ -70,7 +65,7 @@ function App() {
       <div>
         <ul>
         {comments && showComments && comments.map(comment => 
-          <li key={comment.id}>
+          <li key={comment.id} style={{paddingBottom: 10}}>
             { JSON.stringify(comment) }
           </li>  
         )}
